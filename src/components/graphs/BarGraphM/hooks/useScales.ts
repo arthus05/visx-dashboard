@@ -20,7 +20,7 @@ interface IProps {
 export const colorKeys: { [key: string]: string } = {
   'BVS_INCOME': 'rgba(23, 30, 233, 0.9)',
   'CREDIT_CARD_LIMIT': 'rgba(23, 233, 44, 0.9)',
-  'CHICO': 'rgba(233, 23, 23, 0.9)'
+  'CHICO': 'rgba(233, 118, 23, 0.9)'
 }
 
 export const useScales = ({ data, width, height, margin }: IProps) => {

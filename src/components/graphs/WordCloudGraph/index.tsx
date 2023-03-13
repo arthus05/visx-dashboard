@@ -9,7 +9,6 @@ import './styles.scss'
 interface ExampleProps {
   width: number;
   height: number;
-  showControls?: boolean;
 }
 
 export interface WordData {
@@ -17,26 +16,9 @@ export interface WordData {
   value: number;
 }
 
-const colors = ['#143059', '#2F6B9A', '#82a6c2'];
+const colors = ['#002F97', '#5079F2', '#81A0FF'];
 
-function wordFreq(text: string): WordData[] {
-  const words: string[] = text.replace(/\./g, '').split(/\s/);
-  const freqMap: Record<string, number> = {};
-
-  for (const w of words) {
-    if (!freqMap[w]) freqMap[w] = 0;
-    freqMap[w] += 1;
-  }
-  return Object.keys(freqMap).map((word) => ({ text: word, value: freqMap[word] }));
-}
-
-function getRotationDegree() {
-  const rand = Math.random();
-  const degree = rand > 0.5 ? 60 : -60;
-  return rand * degree;
-}
-
-const words = wordFreq(MOCK_WORDS);
+const words = MOCK_WORDS;
 
 const fontScale = scaleLog({
   domain: [Math.min(...words.map((w) => w.value)), Math.max(...words.map((w) => w.value))],
@@ -46,9 +28,7 @@ const fontSizeSetter = (datum: WordData) => fontScale(datum.value);
 
 const fixedValueGenerator = () => 0.5;
 
-type SpiralType = 'archimedean' | 'rectangular';
-
-export default function WordCloudGraph({ width, height, showControls }: ExampleProps) {
+export default function WordCloudGraph({ width, height }: ExampleProps) {
   return (
     <div className="wordcloud">
       <Wordcloud

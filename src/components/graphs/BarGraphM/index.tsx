@@ -158,7 +158,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
                       y={barY}
                       width={barWidth}
                       height={barHeight}
-                      fill="rgba(233, 23, 23, 0.9)"
+                      fill="rgba(233, 118, 23, 0.9)"
                       onClick={() => {
                         if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
                       }}

@@ -15,7 +15,7 @@ const Home = () => {
         <BarGraphM height={500} width={1000}/>
         <BarGraphL height={500} width={1000}/>
         <section className="home__smaller-graphs">
-          <WordCloudGraph height={300} width={500}/>
+          <WordCloudGraph height={500} width={1000}/>
         </section>
       </div>
     </Default>
