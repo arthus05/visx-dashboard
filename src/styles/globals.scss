@@ -1,0 +1,55 @@
+:root {
+  --max-width: 1280px;
+  --border-radius: 12px;
+  --font-sans-serif: 'Roboto Flex', sans-serif;
+  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+  --foreground-color: #0A0A0B;
+  --background-color: #F9F9F9;
+
+  --blue-light: #81A0FF;
+  --blue-default: #5079F2;
+  --blue-dark: #002F97;
+
+  --green-light: #6FFFFF;
+  --green-default: #04D9D9;
+  --green-dark: #008284;
+}
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --foreground-color: #F9F9F9;
+//     --background-color: #0A0A0B;
+//   }
+// }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-sans-serif);
+}
+
+body {
+  color: var(--foreground-color);
+  background-color: var(--background-color) 
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
