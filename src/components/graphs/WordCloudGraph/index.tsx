@@ -49,9 +49,6 @@ const fixedValueGenerator = () => 0.5;
 type SpiralType = 'archimedean' | 'rectangular';
 
 export default function WordCloudGraph({ width, height, showControls }: ExampleProps) {
-  const [spiralType, setSpiralType] = useState<SpiralType>('archimedean');
-  const [withRotation, setWithRotation] = useState(false);
-
   return (
     <div className="wordcloud">
       <Wordcloud
@@ -61,8 +58,8 @@ export default function WordCloudGraph({ width, height, showControls }: ExampleP
         fontSize={fontSizeSetter}
         font={'Impact'}
         padding={2}
-        spiral={spiralType}
-        rotate={withRotation ? getRotationDegree : 0}
+        spiral={'rectangular'}
+        rotate={0}
         random={fixedValueGenerator}
       >
         {(cloudWords) =>
@@ -80,33 +77,6 @@ export default function WordCloudGraph({ width, height, showControls }: ExampleP
           ))
         }
       </Wordcloud>
-      {showControls && (
-        <div>
-          <label>
-            Spiral type &nbsp;
-            <select
-              onChange={(e) => setSpiralType(e.target.value as SpiralType)}
-              value={spiralType}
-            >
-              <option key={'archimedean'} value={'archimedean'}>
-                archimedean
-              </option>
-              <option key={'rectangular'} value={'rectangular'}>
-                rectangular
-              </option>
-            </select>
-          </label>
-          <label>
-            With rotation &nbsp;
-            <input
-              type="checkbox"
-              checked={withRotation}
-              onChange={() => setWithRotation(!withRotation)}
-            />
-          </label>
-          <br />
-        </div>
-      )}
     </div>
   );
 }
