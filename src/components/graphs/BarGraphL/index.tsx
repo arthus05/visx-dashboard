@@ -10,7 +10,7 @@ import './styles.scss'
 import { LegendItem, LegendLabel, LegendOrdinal } from '@visx/legend'
 import { colorKeys, useScales } from './hooks/useScales'
 import { defaultStyles, Tooltip, useTooltip } from '@visx/tooltip'
-
+import { IBarsProps, IData, IPercentageData, TooltipData } from './interface'
 
 const defaultData = { CHICO, CREDIT_CARD_LIMIT, BVS_INCOME, PERCENTAGE }
 const defaultMargin = { top: 40, right: 80, bottom: 60, left: 80 }
@@ -20,41 +20,6 @@ export const getIncome = (d: IData) => d.income;
 export const getRiskGroup = (d: IData) => d.riskGroup;
 export const getPercentage = (d: IPercentageData) => d.value;
 export const getPercentageRiskGroup = (d: IPercentageData) => d.riskGroup;
-
-export interface IData {
-  income: number;
-  riskGroup: string;
-}
-
-export interface IPercentageData {
-  value: number;
-  riskGroup: string;
-}
-
-export interface ISources {
-  CHICO: IData[];
-  CREDIT_CARD_LIMIT: IData[];
-  BVS_INCOME: IData[];
-  PERCENTAGE: IPercentageData[]
-}
-
-export interface IMargin {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
-
-export interface IBarsProps {
-  width: number;
-  height: number;
-  margin?: IMargin;
-  events?: boolean;
-  data?: ISources;
-  scaleCoefficient?: number;
-}
-
-type TooltipData = string;
 
 let tooltipTimeout: number;
 

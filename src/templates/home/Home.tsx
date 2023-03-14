@@ -13,13 +13,16 @@ const Home = () => {
     <Default>
       <div className="home__graphs-container">
         <Hero/>
-        <BarGraph chartTitle="Chart Inner Title" scaleCoefficient={4} height={200} width={1000}/>
-        <BarGraph chartTitle="Chart Inner Title" scaleCoefficient={1} height={500} width={1000}/>
-        <BarGraphM height={500} width={1000}/>
+        <BarGraph chartTitle="Number of Users per Average Monthly Inflow" scaleCoefficient={4} height={200} width={1000}/>
+        <BarGraph chartTitle="Number of Users per Average Monthly Inflow" scaleCoefficient={1} height={500} width={1000}/>
+        <BarGraphM chartOuterTitle="Number of Users per Income - Chico, Credit Card Limit and Income comparison" height={500} width={1000}/>
         <BarGraphL height={500} width={1000}/>
         <section className="home__graphs-bottom-section">
-          <WordCloudGraph height={400} width={500}/>
-          <PieGraph height={500} width={500}/>
+          <h3>What for and how users use their income for</h3>
+          <section className="home__graphs-bottom-section__graphs">
+            <WordCloudGraph height={400} width={500}/>
+            <PieGraph height={500} width={500}/>
+          </section>
         </section>
       </div>
     </Default>

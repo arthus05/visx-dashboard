@@ -9,30 +9,14 @@ import { CHICO } from '../../../mock/barGraph'
 import { Text } from '@visx/text'
 
 import './styles.scss'
+import { IBarsProps, IData } from './interface'
 
 const defaultData = CHICO
 const defaultMargin = { top: 40, right: 30, bottom: 60, left: 80 }
 
 // accessors
-const getIncome = (d: { income: number, userCount: number }) => d.income;
-const getUserCount = (d: { income: number, userCount: number }) => Number(d.userCount);
-
-export interface IMargin {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
-
-export interface IBarsProps {
-  width: number;
-  height: number;
-  margin?: IMargin;
-  events?: boolean;
-  data?: any[];
-  scaleCoefficient?: number;
-  chartTitle?: string;
-}
+const getIncome = (d: IData) => d.income;
+const getUserCount = (d: IData) => Number(d.userCount);
 
 export const BarGraph = ({
   width,
@@ -67,7 +51,7 @@ export const BarGraph = ({
         width < 10 ? null : (
           <svg width={width} height={height}>
             <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
-            <Text x={"46%"} y={"10%"} fontWeight="bold">{chartTitle}</Text>
+            <Text textAnchor='middle' x={"50%"} y={"10%"} fontWeight="bold">{chartTitle}</Text>
             <Group top={margin.top} left={margin.left}>
               {data.map((d) => {
                 const income = getIncome(d);

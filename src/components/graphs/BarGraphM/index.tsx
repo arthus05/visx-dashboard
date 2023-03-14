@@ -43,6 +43,7 @@ export interface IBarsProps {
   events?: boolean;
   data?: ISources;
   scaleCoefficient?: number;
+  chartOuterTitle?: string;
 }
 
 const legendTextTranslator = {
@@ -51,7 +52,7 @@ const legendTextTranslator = {
   BVS_INCOME: 'BVS Income'
 }
 
-export const BarGraphM = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1}: IBarsProps) => {
+export const BarGraphM = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1, chartOuterTitle}: IBarsProps) => {
   const [legendFilter, setLegendFilter] = useState({
     CHICO: true,
     CREDIT_CARD_LIMIT: true,
@@ -59,7 +60,6 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
   })
 
   const {
-    xMax,
     yMax,
     xScale,
     yScale,
@@ -81,7 +81,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
 
   return (
     <>
-      <h3>Chart Outer Title</h3>
+      <h3 className='bar-graph-m__outer-title'>{chartOuterTitle}</h3>
       <div className='bar-graph-m'>
         {
           width < 10 ? null : (

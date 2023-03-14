@@ -9,5 +9,16 @@
   width: 80%;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  h3 {
+    margin-top: 2rem;
+  }
+
+  &__graphs {
+    display: flex;
+    justify-content: center;
+  }
 }
