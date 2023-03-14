@@ -37,7 +37,6 @@ export const BarGraph = ({
     round: true,
     padding: 0.4
   }), [xMax])
-  console.log('domain', xScale.domain());
 
   const yScale = useMemo(() => scaleLinear<number>({
     domain: [0, Math.max(...data.map(getUserCount))],
