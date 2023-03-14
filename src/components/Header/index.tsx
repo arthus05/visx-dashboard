@@ -1,5 +1,3 @@
-import ThemeToggle from './components/ThemeToggle'
-
 import styles from './styles.module.scss'
 
 export const Header = () => {
@@ -7,7 +5,6 @@ export const Header = () => {
     <>
       <header className={styles.header}>
         <p>Chico.ai</p>
-        <ThemeToggle />
       </header>
     </>
   )

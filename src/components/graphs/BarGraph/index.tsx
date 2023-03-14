@@ -58,19 +58,19 @@ export const BarGraph = ({ width, height, events = false, margin = defaultMargin
             <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
             <Group top={margin.top} left={margin.left}>
               {data.map((d) => {
-                const letter = getIncome(d);
+                const income = getIncome(d);
                 const barWidth = xScale.bandwidth();
                 const barHeight = yMax - (yScale(getUserCount(d)) ?? 0);
-                const barX = xScale(letter);
+                const barX = xScale(income);
                 const barY = yMax - barHeight;
                 return (
                   <Bar
-                    key={`bar-${letter}`}
+                    key={`bar-${income}`}
                     x={barX}
                     y={barY}
                     width={barWidth}
                     height={barHeight}
-                    fill="rgba(23, 233, 217, .5)"
+                    fill="rgba(23, 100, 233, 0.5)"
                     onClick={() => {
                       if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
                     }}
