@@ -80,139 +80,142 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
   }
 
   return (
-    <div className='bar-graph-m'>
-      {
-        width < 10 ? null : (
-          <svg width={width} height={height}>
-            <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
-            <Group top={margin.top} left={margin.left}>
-              {legendFilter.BVS_INCOME && data.BVS_INCOME.map((d) => {
-                const income = getIncome(d);
-                const barWidth = xScale.bandwidth();
-                const barHeight = yMax - (yScaleBVS(getUserCount(d)) ?? 0);
-                const barX = xScale(income);
-                const barY = yMax - barHeight;
-                return (
-                  <>
-                    <Bar
-                      key={`bar-${income}-bvs-income`}
-                      x={barX}
-                      y={barY}
-                      width={barWidth}
-                      height={barHeight}
-                      fill="rgba(23, 30, 233, 0.9)"
-                      onClick={() => {
-                        if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                      }}
-                    />
-                  </>
-                );
-              })}
-              {legendFilter.CREDIT_CARD_LIMIT && data.CREDIT_CARD_LIMIT.map((d) => {
-                const income = getIncome(d);
-                const barWidth = xScale.bandwidth();
-                const barHeight = yMax - (yScaleCreditCard(getUserCount(d)) ?? 0);
-                const barX = xScale(income);
-                const barY = yMax - barHeight;
-                return (
-                  <>
-                    <Bar
-                      key={`bar-${income}-credit-card-limit`}
-                      x={barX}
-                      y={barY}
-                      width={barWidth}
-                      height={barHeight}
-                      fill="rgba(23, 233, 44, 0.9)"
-                      onClick={() => {
-                        if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                      }}
-                    />
-                  </>
-                );
-              })}
-              {legendFilter.CHICO && data.CHICO.map((d) => {
-                const income = getIncome(d);
-                const barWidth = xScale.bandwidth();
-                const barHeight = yMax - (yScaleChico(getUserCount(d)) ?? 0);
-                const barX = xScale(income);
-                const barY = yMax - barHeight;
-                return (
-                  <>
-                    <Bar
-                      key={`bar-${income}-chico`}
-                      x={barX}
-                      y={barY}
-                      width={barWidth}
-                      height={barHeight}
-                      fill="rgba(233, 118, 23, 0.9)"
-                      onClick={() => {
-                        if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                      }}
-                    />
-                  </>
-                );
-              })}
-            </Group>
-            <AxisLeft
-              scale={yScale}
-              numTicks={yScale.domain()[1] / (5000 * scaleCoefficient)}
-              top={margin.top}
-              left={margin.left}
-              label={'Users'}
-              stroke='var(--foreground-color)'
-              labelProps={{
-                fontSize: '1rem',
-                y: - margin.left / 2 - 16,
-                x: - yMax * 0.5 - 24,
-              }}
-              tickLabelProps={{
-                width: margin.left,
-                fill: 'var(--foreground-color)',
-              }}
-            />
-            <AxisBottom
-              top={yMax + margin.top}
-              left={margin.left}
-              scale={xScale}
-              label={'Income (R$)'}
-              labelProps={{
-                fontSize: '1rem',
-                y: margin.bottom - 10,
-                x: '35%',
-              }}
-              numTicks={xScale.domain().length}/>
-          </svg>
-        )
-      }
-      <div
-        className='bar-graph-m__legend'
-        style={{ top: margin.top / 2 - 10 }}
-      >
-        <LegendOrdinal
-          scale={colorScale}
-          direction="row"
-          style={{position: 'relative'}}
-          labelMargin="0 15px 0 0">
-            {labels => (
-              <div className='bar-graph-m__legend-container'>
-                {labels.map((label, i) =>(
-                  <LegendItem
-                    key={`legend-quantile-${label}-${i}`}
-                    className={`${legendFilter[label.text as keyof typeof legendFilter] ? '' : 'ticked'}`}
-                    margin="0 5px"
-                    onClick={() => onLegendClick(label.text)}>
-                    <svg width={20} height={20}>
-                      <rect fill={label.value} width={20} height={20} />
-                    </svg>
-                    <LegendLabel align="left" margin="0 0 0 4px">
-                      {legendTextTranslator[label.text as keyof typeof legendTextTranslator]}
-                    </LegendLabel>
-                  </LegendItem>
-                ))}
-              </div>
-            )}
-        </LegendOrdinal>
+    <>
+      <h3>Chart Outer Title</h3>
+      <div className='bar-graph-m'>
+        {
+          width < 10 ? null : (
+            <svg width={width} height={height}>
+              <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
+              <Group top={margin.top} left={margin.left}>
+                {legendFilter.BVS_INCOME && data.BVS_INCOME.map((d) => {
+                  const income = getIncome(d);
+                  const barWidth = xScale.bandwidth();
+                  const barHeight = yMax - (yScaleBVS(getUserCount(d)) ?? 0);
+                  const barX = xScale(income);
+                  const barY = yMax - barHeight;
+                  return (
+                    <>
+                      <Bar
+                        key={`bar-${income}-bvs-income`}
+                        x={barX}
+                        y={barY}
+                        width={barWidth}
+                        height={barHeight}
+                        fill="rgba(23, 30, 233, 0.9)"
+                        onClick={() => {
+                          if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+                        }}
+                      />
+                    </>
+                  );
+                })}
+                {legendFilter.CREDIT_CARD_LIMIT && data.CREDIT_CARD_LIMIT.map((d) => {
+                  const income = getIncome(d);
+                  const barWidth = xScale.bandwidth();
+                  const barHeight = yMax - (yScaleCreditCard(getUserCount(d)) ?? 0);
+                  const barX = xScale(income);
+                  const barY = yMax - barHeight;
+                  return (
+                    <>
+                      <Bar
+                        key={`bar-${income}-credit-card-limit`}
+                        x={barX}
+                        y={barY}
+                        width={barWidth}
+                        height={barHeight}
+                        fill="rgba(23, 233, 44, 0.9)"
+                        onClick={() => {
+                          if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+                        }}
+                      />
+                    </>
+                  );
+                })}
+                {legendFilter.CHICO && data.CHICO.map((d) => {
+                  const income = getIncome(d);
+                  const barWidth = xScale.bandwidth();
+                  const barHeight = yMax - (yScaleChico(getUserCount(d)) ?? 0);
+                  const barX = xScale(income);
+                  const barY = yMax - barHeight;
+                  return (
+                    <>
+                      <Bar
+                        key={`bar-${income}-chico`}
+                        x={barX}
+                        y={barY}
+                        width={barWidth}
+                        height={barHeight}
+                        fill="rgba(233, 118, 23, 0.9)"
+                        onClick={() => {
+                          if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+                        }}
+                      />
+                    </>
+                  );
+                })}
+              </Group>
+              <AxisLeft
+                scale={yScale}
+                numTicks={yScale.domain()[1] / (5000 * scaleCoefficient)}
+                top={margin.top}
+                left={margin.left}
+                label={'Users'}
+                stroke='var(--foreground-color)'
+                labelProps={{
+                  fontSize: '1rem',
+                  y: - margin.left / 2 - 16,
+                  x: - yMax * 0.5 - 24,
+                }}
+                tickLabelProps={{
+                  width: margin.left,
+                  fill: 'var(--foreground-color)',
+                }}
+              />
+              <AxisBottom
+                top={yMax + margin.top}
+                left={margin.left}
+                scale={xScale}
+                label={'Income (R$)'}
+                labelProps={{
+                  fontSize: '1rem',
+                  y: margin.bottom - 10,
+                  x: '35%',
+                }}
+                numTicks={xScale.domain().length}/>
+            </svg>
+          )
+        }
+        <div
+          className='bar-graph-m__legend'
+          style={{ top: margin.top / 2 - 10 }}
+        >
+          <LegendOrdinal
+            scale={colorScale}
+            direction="row"
+            style={{position: 'relative'}}
+            labelMargin="0 15px 0 0">
+              {labels => (
+                <div className='bar-graph-m__legend-container'>
+                  {labels.map((label, i) =>(
+                    <LegendItem
+                      key={`legend-quantile-${label}-${i}`}
+                      className={`${legendFilter[label.text as keyof typeof legendFilter] ? '' : 'ticked'}`}
+                      margin="0 5px"
+                      onClick={() => onLegendClick(label.text)}>
+                      <svg width={20} height={20}>
+                        <rect fill={label.value} width={20} height={20} />
+                      </svg>
+                      <LegendLabel align="left" margin="0 0 0 4px">
+                        {legendTextTranslator[label.text as keyof typeof legendTextTranslator]}
+                      </LegendLabel>
+                    </LegendItem>
+                  ))}
+                </div>
+              )}
+          </LegendOrdinal>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

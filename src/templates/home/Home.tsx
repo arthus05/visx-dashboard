@@ -13,8 +13,8 @@ const Home = () => {
     <Default>
       <div className="home__graphs-container">
         <Hero/>
-        <BarGraph scaleCoefficient={4} height={200} width={1000}/>
-        <BarGraph scaleCoefficient={1} height={500} width={1000}/>
+        <BarGraph chartTitle="Chart Inner Title" scaleCoefficient={4} height={200} width={1000}/>
+        <BarGraph chartTitle="Chart Inner Title" scaleCoefficient={1} height={500} width={1000}/>
         <BarGraphM height={500} width={1000}/>
         <BarGraphL height={500} width={1000}/>
         <section className="home__graphs-bottom-section">

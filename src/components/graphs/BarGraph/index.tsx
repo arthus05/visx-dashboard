@@ -6,6 +6,8 @@ import { AxisBottom, AxisLeft } from '@visx/axis'
 import { useMemo } from 'react'
 import { CHICO } from '../../../mock/barGraph'
 
+import { Text } from '@visx/text'
+
 import './styles.scss'
 
 const defaultData = CHICO
@@ -29,9 +31,18 @@ export interface IBarsProps {
   events?: boolean;
   data?: any[];
   scaleCoefficient?: number;
+  chartTitle?: string;
 }
 
-export const BarGraph = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1}: IBarsProps) => {
+export const BarGraph = ({
+  width,
+  height,
+  events = false,
+  margin = defaultMargin,
+  data = defaultData,
+  scaleCoefficient = 1,
+  chartTitle
+}: IBarsProps) => {
   // bounds
   const xMax = width - margin.right - margin.left;
   const yMax = height - margin.top - margin.bottom;
@@ -56,6 +67,7 @@ export const BarGraph = ({ width, height, events = false, margin = defaultMargin
         width < 10 ? null : (
           <svg width={width} height={height}>
             <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
+            <Text x={"46%"} y={"10%"} fontWeight="bold">{chartTitle}</Text>
             <Group top={margin.top} left={margin.left}>
               {data.map((d) => {
                 const income = getIncome(d);
