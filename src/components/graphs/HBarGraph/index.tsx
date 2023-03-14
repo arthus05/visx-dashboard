@@ -31,7 +31,7 @@ export interface IBarsProps {
   scaleCoefficient?: number;
 }
 
-export const BarGraph = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1}: IBarsProps) => {
+export const HBarGraph = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1}: IBarsProps) => {
   // bounds
   const xMax = width - margin.right - margin.left;
   const yMax = height - margin.top - margin.bottom;
@@ -66,10 +66,10 @@ export const BarGraph = ({ width, height, events = false, margin = defaultMargin
                 return (
                   <Bar
                     key={`bar-${letter}`}
-                    x={barX}
-                    y={barY}
-                    width={barWidth}
-                    height={barHeight}
+                    y={barX}
+                    x={barY}
+                    width={barHeight}
+                    height={barWidth}
                     fill="rgba(23, 233, 217, .5)"
                     onClick={() => {
                       if (events) alert(`clicked: ${JSON.stringify(Object.values(d))}`);

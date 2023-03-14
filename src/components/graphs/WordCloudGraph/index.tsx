@@ -1,6 +1,5 @@
 import Wordcloud from '@visx/wordcloud/lib/Wordcloud';
 import { MOCK_WORDS } from '../../../mock/wordCloud';
-import React, { useState } from 'react';
 import { scaleLog } from '@visx/scale';
 import { Text } from '@visx/text';
 
@@ -20,8 +19,10 @@ const colors = ['#002F97', '#5079F2', '#81A0FF'];
 
 const words = MOCK_WORDS;
 
+const getValue = (w: WordData) => w.value 
+
 const fontScale = scaleLog({
-  domain: [Math.min(...words.map((w) => w.value)), Math.max(...words.map((w) => w.value))],
+  domain: [Math.min(...words.map(getValue)), Math.max(...words.map(getValue))],
   range: [10, 100],
 });
 const fontSizeSetter = (datum: WordData) => fontScale(datum.value);

@@ -15,8 +15,8 @@ const defaultData = { CHICO, CREDIT_CARD_LIMIT, BVS_INCOME }
 const defaultMargin = { top: 40, right: 30, bottom: 60, left: 80 }
 
 // accessors
-export const getIncome = (d: { income: number, userCount: number }) => d.income;
-export const getUserCount = (d: { income: number, userCount: number }) => Number(d.userCount);
+export const getIncome = (d: IData) => d.income;
+export const getUserCount = (d: IData) => Number(d.userCount);
 
 export interface IData {
   income: number;
@@ -45,22 +45,18 @@ export interface IBarsProps {
   scaleCoefficient?: number;
 }
 
-const legendTextTranslator: {[key: string]: string} = {
+const legendTextTranslator = {
   CHICO: 'Chico',
   CREDIT_CARD_LIMIT: 'Credit Card Limit',
   BVS_INCOME: 'BVS Income'
 }
 
 export const BarGraphM = ({ width, height, events = false, margin = defaultMargin, data = defaultData, scaleCoefficient = 1}: IBarsProps) => {
-  const [legendFilter, setLegendFilter] = useState<{[key: string]: boolean}>({
+  const [legendFilter, setLegendFilter] = useState({
     CHICO: true,
     CREDIT_CARD_LIMIT: true,
     BVS_INCOME: true
   })
-
-  useEffect(() => {
-    console.log('asdasd', legendFilter)
-  }, [legendFilter])
 
   const {
     xMax,
@@ -89,16 +85,6 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
         width < 10 ? null : (
           <svg width={width} height={height}>
             <rect x={0} y={0} width={width} height={height} fill="var(--green-default)" fillOpacity={0.2} className='bar-graph__rect' rx={14} />
-            <Grid
-              top={margin.top}
-              left={margin.left}
-              xScale={xScale}
-              yScale={yScale}
-              width={xMax}
-              height={yMax}
-              stroke={'var(--foreground-color)'}
-              strokeOpacity={0.1}
-            />
             <Group top={margin.top} left={margin.left}>
               {legendFilter.BVS_INCOME && data.BVS_INCOME.map((d) => {
                 const income = getIncome(d);
@@ -172,7 +158,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
               numTicks={yScale.domain()[1] / (5000 * scaleCoefficient)}
               top={margin.top}
               left={margin.left}
-              label={'User Count'}
+              label={'Users'}
               stroke='var(--foreground-color)'
               labelProps={{
                 fontSize: '1rem',
@@ -188,7 +174,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
               top={yMax + margin.top}
               left={margin.left}
               scale={xScale}
-              label={'Average Monthly Inflow'}
+              label={'Income (R$)'}
               labelProps={{
                 fontSize: '1rem',
                 y: margin.bottom - 10,
@@ -212,14 +198,14 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
                 {labels.map((label, i) =>(
                   <LegendItem
                     key={`legend-quantile-${i}`}
-                    className={`${legendFilter[label.text] ? '' : 'ticked'}`}
+                    className={`${legendFilter[label.text as keyof typeof legendFilter] ? '' : 'ticked'}`}
                     margin="0 5px"
                     onClick={() => onLegendClick(label.text)}>
                     <svg width={20} height={20}>
                       <rect fill={label.value} width={20} height={20} />
                     </svg>
                     <LegendLabel align="left" margin="0 0 0 4px">
-                      {legendTextTranslator[label.text]}
+                      {legendTextTranslator[label.text as keyof typeof legendTextTranslator]}
                     </LegendLabel>
                   </LegendItem>
                 ))}

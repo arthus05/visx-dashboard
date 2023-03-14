@@ -1,9 +1,10 @@
 .wordcloud {
   display: flex;
+  position: relative;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   user-select: none;
-
-  // border: 1px solid red;
 }
 .wordcloud svg {
   margin: 1rem 0;
