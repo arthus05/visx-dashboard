@@ -95,7 +95,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
                 return (
                   <>
                     <Bar
-                      key={`bar-${income}-credit-card-limit`}
+                      key={`bar-${income}-bvs-income`}
                       x={barX}
                       y={barY}
                       width={barWidth}
@@ -139,7 +139,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
                 return (
                   <>
                     <Bar
-                      key={`bar-${income}`}
+                      key={`bar-${income}-chico`}
                       x={barX}
                       y={barY}
                       width={barWidth}
@@ -197,7 +197,7 @@ export const BarGraphM = ({ width, height, events = false, margin = defaultMargi
               <div className='bar-graph-m__legend-container'>
                 {labels.map((label, i) =>(
                   <LegendItem
-                    key={`legend-quantile-${i}`}
+                    key={`legend-quantile-${label}-${i}`}
                     className={`${legendFilter[label.text as keyof typeof legendFilter] ? '' : 'ticked'}`}
                     margin="0 5px"
                     onClick={() => onLegendClick(label.text)}>

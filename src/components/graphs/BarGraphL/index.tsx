@@ -126,7 +126,7 @@ export const BarGraphL = ({ width, height, events = false, margin = defaultMargi
                 return (
                   <>
                     <Bar
-                      key={`bar-${riskGroup}`}
+                      key={`bar-${riskGroup}-percentage`}
                       className='bar-graph-l__bar'
                       x={barX}
                       y={barY}
@@ -211,7 +211,7 @@ export const BarGraphL = ({ width, height, events = false, margin = defaultMargi
                         const y = yScale(getIncome(d))
                         return (
                           <Circle
-                            key={`chico-${x}`}
+                            key={`credit-card-limit-${x}`}
                             r={3}
                             cx={x}
                             cy={y}
@@ -254,7 +254,7 @@ export const BarGraphL = ({ width, height, events = false, margin = defaultMargi
                         const y = yScale(getIncome(d))
                         return (
                           <Circle
-                            key={`chico-${x}`}
+                            key={`bvs-income-${x}`}
                             r={3}
                             cx={x}
                             cy={y}

@@ -2,32 +2,30 @@ import { useState } from 'react';
 import Pie, { ProvidedProps, PieArcDatum } from '@visx/shape/lib/shapes/Pie';
 import { scaleOrdinal } from '@visx/scale';
 import { Group } from '@visx/group';
-import letterFrequency, { LetterFrequency } from '@visx/mock-data/lib/mocks/letterFrequency';
-import browserUsage, { BrowserUsage as Browsers } from '@visx/mock-data/lib/mocks/browserUsage';
+
+import { BANK_USAGE, PAYMENT_METHOD } from '../../../mock/pieGraph';
+import { IBankUsage, IPaymentMethodFrequency } from './interface';
+
 import { animated, useTransition, interpolate } from '@react-spring/web';
 
 // data and types
-type BrowserNames = keyof Browsers;
+type BankNames = keyof IBankUsage;
 
-interface BrowserUsage {
-  label: BrowserNames;
+interface BankUsage {
+  label: string;
   usage: number;
 }
 
-const letters: LetterFrequency[] = letterFrequency.slice(0, 4);
-const browserNames = Object.keys(browserUsage[0]).filter((k) => k !== 'date') as BrowserNames[];
-const browsers: BrowserUsage[] = browserNames.map((name) => ({
-  label: name,
-  usage: Number(browserUsage[0][name]),
-}));
-
+const methods: IPaymentMethodFrequency[] = PAYMENT_METHOD.slice(0, 4);
+const bankNames = Object.keys(BANK_USAGE[0]) as BankNames[];
+const bankUsage: BankUsage[] = BANK_USAGE
 // accessor functions
-const usage = (d: BrowserUsage) => d.usage;
-const frequency = (d: LetterFrequency) => d.frequency;
+const usage = (d: BankUsage) => d.usage;
+const frequency = (d: IPaymentMethodFrequency) => d.frequency;
 
 // color scales
-const getBrowserColor = scaleOrdinal({
-  domain: browserNames,
+const getBankColor = scaleOrdinal({
+  domain: bankNames,
   range: [
     'rgba(80, 121, 242, 0.7)',
     'rgba(80, 121, 242, 0.6)',
@@ -38,8 +36,8 @@ const getBrowserColor = scaleOrdinal({
     'rgba(80, 121, 242, 0.1)',
   ],
 });
-const getLetterFrequencyColor = scaleOrdinal({
-  domain: letters.map((l) => l.letter),
+const getMethodFrequencyColor = scaleOrdinal({
+  domain: methods.map((l) => l.method),
   range: ['rgba(4,217,217,1)', 'rgba(4,217,217,0.8)', 'rgba(4,217,217,0.6)', 'rgba(4,217,217,0.4)'],
 });
 
@@ -58,8 +56,8 @@ export default function PieGraph({
   margin = defaultMargin,
   animate = true,
 }: PieProps) {
-  const [selectedBrowser, setSelectedBrowser] = useState<string | null>(null);
-  const [selectedAlphabetLetter, setSelectedAlphabetLetter] = useState<string | null>(null);
+  const [selectedBank, setSelectedBank] = useState<string | null>(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
 
   if (width < 10) return null;
 
@@ -75,7 +73,7 @@ export default function PieGraph({
       <Group top={centerY + margin.top} left={centerX + margin.left}>
         <Pie
           data={
-            selectedBrowser ? browsers.filter(({ label }) => label === selectedBrowser) : browsers
+            selectedBank ? bankUsage.filter(({ label }) => label === selectedBank) : bankUsage
           }
           pieValue={usage}
           outerRadius={radius}
@@ -84,40 +82,40 @@ export default function PieGraph({
           padAngle={0.005}
         >
           {(pie) => (
-            <AnimatedPie<BrowserUsage>
+            <AnimatedPie<BankUsage>
               {...pie}
               animate={animate}
               getKey={(arc) => arc.data.label}
               onClickDatum={({ data: { label } }) =>
                 animate &&
-                setSelectedBrowser(selectedBrowser && selectedBrowser === label ? null : label)
+                setSelectedBank(selectedBank && selectedBank === label ? null : label)
               }
-              getColor={(arc) => getBrowserColor(arc.data.label)}
+              getColor={(arc) => getBankColor(arc.data.label as keyof IBankUsage)}
             />
           )}
         </Pie>
         <Pie
           data={
-            selectedAlphabetLetter
-              ? letters.filter(({ letter }) => letter === selectedAlphabetLetter)
-              : letters
+            selectedPaymentMethod
+              ? methods.filter(({ method }) => method === selectedPaymentMethod)
+              : methods
           }
           pieValue={frequency}
           pieSortValues={() => -1}
           outerRadius={radius - donutThickness * 1.3}
         >
           {(pie) => (
-            <AnimatedPie<LetterFrequency>
+            <AnimatedPie<IPaymentMethodFrequency>
               {...pie}
               animate={animate}
-              getKey={({ data: { letter } }) => letter}
-              onClickDatum={({ data: { letter } }) =>
+              getKey={({ data: { method } }) => method}
+              onClickDatum={({ data: { method } }) =>
                 animate &&
-                setSelectedAlphabetLetter(
-                  selectedAlphabetLetter && selectedAlphabetLetter === letter ? null : letter,
+                setSelectedPaymentMethod(
+                  selectedPaymentMethod && selectedPaymentMethod === method ? null : method,
                 )
               }
-              getColor={({ data: { letter } }) => getLetterFrequencyColor(letter)}
+              getColor={({ data: { method } }) => getMethodFrequencyColor(method)}
             />
           )}
         </Pie>
