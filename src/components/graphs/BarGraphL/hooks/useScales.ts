@@ -1,6 +1,7 @@
 import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale";
 import { useMemo } from "react";
-import { getRiskGroup, getIncome, ISources, getPercentage } from "..";
+import { getRiskGroup, getIncome } from "../index";
+import { ISources } from "../interface";
 
 interface IMargin {
   bottom: number;
@@ -55,18 +56,6 @@ export const useScales = ({ data, width, height, margin }: IProps) => {
     range: [yMax, 0],
     round: true,
   }), [yMax])
-
-  // const yScaleCreditCard = useMemo(() => scaleLinear<number>({
-  //   domain: [0, Math.max(...data.CREDIT_CARD_LIMIT.map(getUserCount))],
-  //   range: [yMax, 0],
-  //   round: true,
-  // }), [yMax])
-
-  // const yScaleBVS = useMemo(() => scaleLinear<number>({
-  //   domain: [0, Math.max(...data.BVS_INCOME.map(getUserCount))],
-  //   range: [yMax, 0],
-  //   round: true,
-  // }), [yMax])
 
   const colorScale = useMemo(() => scaleOrdinal<string, string>({
     domain: keys,
